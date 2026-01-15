@@ -1,0 +1,2169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+      <h1 class="title">Hello World!</h1>
+      <p id="currentTime"></p>
+      <script src="script.js"></script>
+  </body>
+</html><!DOCTYPE html>
+<html>
+  <head>
+    <title>lexia.com</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00);
+        background-size: 400% 400%;
+        animation: neonBackground 15s ease infinite;
+        color: #333;
+        overflow-x: hidden;
+      }
+      @keyframes neonBackground {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      h1 {
+        color: #007bff;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      }
+      #radioactive-status {
+        width: 100%;
+        max-width: 1200px;
+        padding: 10px 20px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2em;
+        color: #00ff00;
+        text-shadow: 0 0 5px #0f0;
+        margin-bottom: 15px;
+        display: none;
+        user-select: none;
+      }
+      #conveyor-belt-section {
+        width: 100%;
+        max-width: 1200px;
+        margin-bottom: 15px;
+        padding: 10px;
+        background: #8b0000;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 110px;
+        position: relative;
+        user-select: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #conveyor-belt-section h3 {
+        color: #fff;
+        margin: 0 0 7px 0;
+        user-select: none;
+      }
+      #conveyor-belt {
+        display: flex;
+        gap: 15px;
+        height: 80px;
+        align-items: center;
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+      }
+      #conveyor-belt-inner {
+        display: flex;
+        gap: 15px;
+        animation-timing-function: linear;
+        user-select: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 80px;
+        white-space: nowrap;
+      }
+      .conveyor-upgrade {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(45deg, #333, #000);
+        border-radius: 12px;
+        border: 3px solid black;
+        box-shadow: inset 0 0 14px #440000, 0 0 8px #aa0000;
+        color: white;
+        font-size: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        user-select: none;
+        flex-shrink: 0;
+        text-shadow: 1px 1px 3px black;
+      }
+      .black-hole-left, .black-hole-right {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: radial-gradient(circle, black 60%, transparent 100%);
+        top: 0;
+        pointer-events: none;
+        animation: blackHolePulse 2.5s infinite alternate;
+        z-index: 2;
+      }
+      .black-hole-left { left: 0; }
+      .black-hole-right { right: 0; }
+      @keyframes blackHolePulse {
+        0% { box-shadow: 0 0 30px 5px rgba(0,0,0,0.9);}
+        100% { box-shadow: 0 0 40px 12px rgba(0,0,0,0.5);}
+      }
+      /* Taco raining effect on card */
+      .taco-trait {
+        position: relative;
+      }
+      .taco-emoji {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 22px;
+        animation: tacoFall 3s ease-in-out infinite;
+        pointer-events: none;
+        user-select: none;
+      }
+      @keyframes tacoFall {
+        0%   { opacity: 0; transform: translateX(-50%) translateY(-30px) rotate(0deg); }
+        50%  { opacity: 1; transform: translateX(-50%) translateY(10px) rotate(15deg); }
+        100% { opacity: 0; transform: translateX(-50%) translateY(-30px) rotate(-15deg); }
+      }
+      /* Fire aura for Solar Flare */
+      .fire-trait {
+        box-shadow: 0 0 12px 4px #ff4500 inset, 0 0 15px 5px #ff6347;
+        position: relative;
+        user-select: none;
+      }
+      .fire-emoji {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        font-size: 24px;
+        pointer-events: none;
+        user-select: none;
+      }
+      /* Radioactive Event Timer Display */
+      #radioactive-timer {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: rgba(0,255,0,0.85);
+        color: black;
+        padding: 6px 12px;
+        border-radius: 10px;
+        font-weight: bold;
+        font-family: monospace;
+        z-index: 3002;
+        user-select: none;
+      }
+      /* Radioactive Sign on upgrade button */
+      .radioactive-sign {
+        color: #0f0;
+        font-weight: bold;
+        margin-left: 10px;
+        user-select: none;
+        position: absolute;
+        top: -4px;
+        right: -6px;
+        background: #004400;
+        padding: 0 6px;
+        border-radius: 8px;
+        font-size: 0.75em;
+        pointer-events: none;
+        box-shadow: 0 0 5px #0f0;
+      }
+      /* Rainbow Sign on upgrade button */
+      .rainbow-sign {
+        color: #ff69b4;
+        font-weight: bold;
+        margin-left: 10px;
+        user-select: none;
+        position: absolute;
+        top: -5px;
+        right: -12px;
+        background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+        padding: 1px 8px;
+        border-radius: 10px;
+        font-size: 0.75em;
+        pointer-events: none;
+        box-shadow: 0 0 8px #ff69b4, 0 0 15px #ff69b4 inset;
+      }
+      /* Taco Sign on owned card in My Upgrades */
+      .taco-label {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        font-size: 20px;
+        user-select: none;
+        pointer-events: none;
+        z-index: 10;
+      }
+      /* My Upgrades styling for trait grouping */
+      #owned-upgrades-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-height: 70vh;
+        overflow-y: auto;
+        gap: 15px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .trait-group {
+        border: 2px solid #666;
+        border-radius: 10px;
+        padding: 10px;
+        background: #222;
+        color: white;
+        width: 100%;
+        max-width: 1200px;
+        box-sizing: border-box;
+      }
+      .trait-group h3 {
+        margin: 5px 0 10px 0;
+        user-select: none;
+      }
+      .owned-upgrade-card {
+        position: relative;
+        background: #ddd;
+        border-radius: 10px;
+        padding: 10px 15px;
+        margin-bottom: 7px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: bold;
+        color: #222;
+        user-select: none;
+        min-width: 200px;
+        max-width: 280px;
+        flex-shrink: 0;
+        box-sizing: border-box;
+      }
+      .owned-upgrade-card .icon {
+        font-size: 2rem;
+      }
+      .owned-upgrade-card.taco-trait {
+        background: #fff1a8;
+        box-shadow: 0 0 10px #ffbf00 inset;
+      }
+      .owned-upgrade-card.fire-trait {
+        background: #ffdac1;
+        box-shadow: 0 0 15px #ff4500 inset;
+      }
+      .owned-upgrade-card.radioactive {
+        background: #aaffaa;
+        box-shadow: 0 0 10px #00ff00 inset;
+      }
+      .owned-upgrade-card.rainbow {
+        background: linear-gradient(45deg, violet, cyan, orange);
+        box-shadow: 0 0 12px 4px #ff69b4 inset;
+        color: black;
+      }
+      .owned-upgrade-card .trait-labels {
+        margin-left: auto;
+        display: flex;
+        gap: 6px;
+        font-size: 1.2em;
+      }
+      .owned-upgrade-card .trait-labels span {
+        user-select: none;
+      }
+
+      /*
+        Rest of original styles below (unchanged) ...
+        Keeping all styles from original for consistency.
+      */
+      #game-container {
+        display: flex;
+        gap: 20px;
+        max-width: 1200px;
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      #main-game {
+        flex: 2;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #stats {
+        margin-bottom: 20px;
+        font-size: 1.2em;
+        line-height: 1.6;
+      }
+      #cookie {
+        width: 200px;
+        height: 200px;
+        background-color: #8b4513;
+        border-radius: 50%;
+        margin: 20px auto;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 6em;
+        color: #fff;
+        border: 10px solid #a0522d;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+        user-select: none;
+      }
+      #cookie:active {
+        transform: scale(0.95);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+      #upgrades-panel {
+        flex: 1;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        max-height: 80vh;
+      }
+      h2 {
+        color: #007bff;
+        margin-top: 0;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+      }
+      .upgrade-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        padding: 12px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background-color: #fcfcfc;
+        transition: background-color 0.2s;
+        user-select: none;
+        position: relative;
+      }
+      .upgrade-item:hover {
+        background-color: #f0f8ff;
+      }
+      .upgrade-item button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        margin-left: 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.1s;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        position: relative;
+        user-select: none;
+      }
+      .upgrade-item button:hover:not(:disabled) {
+        background-color: #218838;
+        transform: translateY(-1px);
+      }
+      .upgrade-item button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+      #admin-button {
+        margin-top: 20px;
+        padding: 12px 25px;
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s, transform 0.1s;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      #admin-button:hover {
+        background-color: #5a6268;
+        transform: translateY(-1px);
+      }
+      #view-logs-button, #view-owned-upgrades-button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #17a2b8;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s, transform 0.1s;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        user-select: none;
+      }
+      #view-logs-button:hover, #view-owned-upgrades-button:hover {
+        background-color: #138496;
+        transform: translateY(-1px);
+      }
+      #admin-panel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.85);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+        user-select: none;
+      }
+      #admin-content {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        border: 2px solid transparent;
+        border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 1;
+        box-shadow: 0 0 15px rgba(255,0,255,0.7), 0 0 25px rgba(0,255,255,0.7), 0 0 35px rgba(255,255,0,0.7);
+        width: 450px;
+        max-width: 90%;
+        text-align: center;
+        animation: fadeIn 0.3s ease-out;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      #admin-content input[type="password"],
+      #admin-content input[type="number"],
+      #admin-content input[type="text"] {
+        width: calc(100% - 24px);
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1em;
+      }
+      #admin-content button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s, transform 0.1s;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      #admin-content button:hover {
+        background-color: #0056b3;
+        transform: translateY(-1px);
+      }
+      #admin-content button.close {
+        background-color: #dc3545;
+      }
+      #admin-content button.close:hover {
+        background-color: #c82333;
+      }
+      #admin-cheats div, #tester-cheats div {
+        margin-bottom: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      #admin-cheats div input, #tester-cheats div input {
+        flex-grow: 1;
+      }
+      #admin-cheats p, #tester-cheats p {
+        margin: 5px 0;
+      }
+      #rebirth-section button#rebirth-button, #tester-cheats button {
+        background-color: #ffc107;
+        color: #333;
+        font-weight: bold;
+        padding: 12px 25px;
+        margin-top: 15px;
+      }
+      #rebirth-section button#rebirth-button:hover:not(:disabled), #tester-cheats button:hover:not(:disabled) {
+        background-color: #e0a800;
+      }
+      #rebirth-section button#rebirth-button:disabled, #tester-cheats button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+      .golden-cookie {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        background-color: gold;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5em;
+        cursor: pointer;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.5) inset;
+        animation: pulse 1.5s infinite alternate, float 5s ease-in-out infinite;
+        z-index: 999;
+        user-select: none;
+        transition: transform 0.1s ease-in-out;
+      }
+      .golden-cookie:active {
+        transform: scale(0.9);
+      }
+      @keyframes pulse {
+        from { transform: scale(1); opacity: 1; }
+        to { transform: scale(1.1); opacity: 0.8; }
+      }
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+      }
+      .effect-display {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-size: 1em;
+        z-index: 1001;
+        display: none;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        user-select: none;
+      }
+
+      #ai-helper-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007bff;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 1em;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        z-index: 1002;
+        transition: background-color 0.3s;
+        user-select: none;
+      }
+      #ai-helper-button:hover {
+        background-color: #0056b3;
+      }
+      #ai-helper-panel {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        height: 400px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        z-index: 1003;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        user-select: none;
+      }
+      .ai-header {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+      }
+      .ai-header button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.2em;
+        cursor: pointer;
+      }
+      .ai-chat-body {
+        flex-grow: 1;
+        padding: 15px;
+        overflow-y: auto;
+        border-bottom: 1px solid #eee;
+      }
+      .ai-chat-body p {
+        margin-bottom: 10px;
+        line-height: 1.4;
+      }
+      .ai-chat-body .user-message {
+        text-align: right;
+        color: #007bff;
+      }
+      .ai-chat-body .ai-message {
+        text-align: left;
+        color: #333;
+        background-color: #f0f0f0;
+        padding: 8px;
+        border-radius: 8px;
+        margin-right: 20%;
+      }
+      .ai-input {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #eee;
+      }
+      .ai-input input {
+        flex-grow: 1;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-right: 5px;
+      }
+      .ai-input button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      /* Copyright style */
+      .copyright {
+        margin-top: 30px;
+        font-size: 0.9em;
+        color: #aaa;
+        text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        user-select: none;
+      }
+      .made-by-david {
+        margin-top: 10px;
+        font-size: 0.8em;
+        color: #888;
+        text-shadow: 0 0 3px rgba(255,255,255,0.3);
+        user-select: none;
+      }
+
+      /* Global Announcement style */
+      #global-announcement-display {
+        background-color: #ffeb3b;
+        color: #333;
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        font-weight: bold;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        display: none;
+        width: 80%;
+        max-width: 500px;
+        animation: slideIn 0.5s ease-out;
+        user-select: none;
+      }
+      @keyframes slideIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Update Logs display style */
+      #update-logs-display {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 15px;
+        text-align: left;
+        max-height: 200px;
+        overflow-y: auto;
+        font-size: 0.9em;
+        color: #495057;
+        display: none;
+        width: 80%;
+        max-width: 500px;
+        user-select: none;
+      }
+      #update-logs-display ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      #update-logs-display li {
+        margin-bottom: 8px;
+        border-bottom: 1px dashed #dee2e6;
+        padding-bottom: 8px;
+      }
+      #update-logs-display li:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      /* Music Player styles */
+      #music-player {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 250px;
+        user-select: none;
+      }
+      #music-player h3 {
+        margin: 0 0 10px 0;
+        color: #007bff;
+        font-size: 1.1em;
+      }
+      #music-player select, #music-player input[type="range"] {
+        width: 100%;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+      }
+      #music-controls {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+      #music-controls button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      #music-controls button:hover {
+        background-color: #218838;
+      }
+      #music-controls button#pause-music-button {
+        background-color: #dc3545;
+      }
+      #music-controls button#pause-music-button:hover {
+        background-color: #c82333;
+      }
+      #music-player iframe {
+        border: none;
+        border-radius: 8px;
+        margin-top: 8px;
+        width: 100%;
+        height: 180px;
+      }
+
+      /* Rebirth container */
+      #rebirth-section {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background-color: #fcfcfc;
+        width: 80%;
+        max-width: 400px;
+        user-select: none;
+      }
+      #rebirth-section h3 {
+        margin-top: 0;
+        color: #007bff;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+      }
+
+      /* Big Admin Countdown overlay */
+      #admin-countdown {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 8em;
+        font-weight: bold;
+        color: red;
+        background: rgba(0,0,0,0.75);
+        padding: 30px 50px;
+        border-radius: 20px;
+        z-index: 3000;
+        user-select: none;
+        text-align: center;
+        display: none;
+      }
+
+      /* Admin Commands Chat Box */
+      #admin-chat-box {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 320px;
+        max-height: 300px;
+        background: rgba(0,0,0,0.8);
+        border-radius: 12px;
+        padding: 10px;
+        color: lime;
+        font-family: monospace;
+        font-size: 14px;
+        overflow-y: auto;
+        z-index: 3001;
+        display: flex;
+        flex-direction: column;
+        user-select: none;
+      }
+      #admin-chat-log {
+        max-height: 220px;
+        overflow-y: auto;
+        margin-bottom: 8px;
+        white-space: pre-wrap;
+        flex-grow: 1;
+      }
+      #admin-chat-input {
+        width: 100%;
+        padding: 6px;
+        border-radius: 6px;
+        border:none;
+        background: black;
+        color: lime;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Lexia's Spacebar Clicker</h1>
+
+    <div id="radioactive-status">Radioactive Event Started!</div>
+
+    <div id="conveyor-belt-section">
+      <h3>Conveyor Belt Upgrades</h3>
+      <div class="black-hole-left"></div>
+      <div id="conveyor-belt">
+        <div id="conveyor-belt-inner"></div>
+      </div>
+      <div class="black-hole-right"></div>
+    </div>
+
+    <div id="game-container" style="display:flex;">
+      <div id="main-game">
+        <div id="global-announcement-display"></div>
+        <div id="stats">
+          <p>Clicks: <span id="clicks-display">0</span></p>
+          <p>CPS: <span id="cps-display">0</span></p>
+          <p>CPC: <span id="cpc-display">1</span></p>
+          <p>Luck Multiplier: <span id="luck-multiplier-display">x1</span></p>
+        </div>
+        <div id="cookie">🍪</div>
+        <button id="admin-button">Admin Panel</button>
+        <button id="view-logs-button">View Update Logs</button>
+        <button id="view-owned-upgrades-button">My Upgrades</button>
+        <div id="update-logs-display"></div>
+
+        <div id="rebirth-section">
+          <h3>Rebirth</h3>
+          <p>Rebirths: <span id="rebirths-display">0</span></p>
+          <p>Next Rebirth: <span id="rebirth-req-display">1,000,000</span> clicks</p>
+          <button id="rebirth-button" onclick="rebirth()">Rebirth!</button>
+        </div>
+
+        <div id="luck-shop">
+          <h3>Luck Multiplier Shop</h3>
+          <div id="luck-items"></div>
+          <p>Buy luck multipliers to increase your chances of special upgrade boosts!</p>
+        </div>
+      </div>
+
+      <div id="upgrades-panel">
+        <h2>Upgrades</h2>
+        <div id="upgrades-list"></div>
+      </div>
+    </div>
+
+    <div id="owned-upgrades-screen" style="position: fixed; top: 10%; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.9); width: 90vw; max-width: 1300px; height: 75vh; border-radius: 12px; padding: 20px; display: none; flex-direction: column; overflow: hidden; z-index: 2000; color: white;">
+      <button id="close-owned-upgrades" style="align-self: flex-end; background: #007bff; border: none; border-radius: 5px; color: white; padding: 8px 14px; cursor: pointer; user-select: none;">Close</button>
+      <h2>Your Owned Upgrades</h2>
+      <div id="owned-upgrades-list" style="overflow-y: auto; flex-grow: 1; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;"></div>
+    </div>
+
+    <div id="admin-panel">
+      <div id="admin-content">
+        <h2>Admin Panel</h2>
+        <input type="password" id="admin-password" placeholder="Password" />
+        <button onclick="checkAdminPassword()">Enter</button>
+        <button class="close" onclick="hideAdminPanel()">Close</button>
+
+        <div id="admin-cheats" style="display: none; margin-top: 20px;">
+          <h3>Cheats</h3>
+          <div>
+            <input type="number" id="cheat-clicks-amount" placeholder="Amount to add" min="1" />
+            <button onclick="giveClicksCheat()">Give Clicks</button>
+          </div>
+          <div>
+            <input type="number" id="cheat-set-clicks" placeholder="Set total clicks" min="0" />
+            <button onclick="setClicksCheat()">Set Clicks</button>
+          </div>
+          <div>
+            <input type="number" id="cheat-set-cps" placeholder="Set CPS" min="0" />
+            <button onclick="setCpsCheat()">Set CPS</button>
+          </div>
+          <div>
+            <input type="number" id="cheat-set-cpc" placeholder="Set CPC" min="0" />
+            <button onclick="setCpcCheat()">Set CPC</button>
+          </div>
+          <div>
+            <input type="number" id="cheat-golden-cookies-amount" placeholder="Amount to spawn" min="1" />
+            <button onclick="spawnGoldenCookiesCheat()">Spawn Golden Cookies</button>
+          </div>
+
+          <hr style="margin: 20px 0; border-color: #eee;">
+          <h3>Global Announcements</h3>
+          <div>
+            <input type="text" id="announcement-text" placeholder="Enter announcement message" />
+            <button onclick="setGlobalAnnouncement()">Post Announcement</button>
+          </div>
+          <div>
+            <button onclick="clearGlobalAnnouncement()">Clear Announcement</button>
+          </div>
+
+          <hr style="margin: 20px 0; border-color: #eee;">
+          <h3>Admin Spawns (Admins Only)</h3>
+          <div>
+            <button onclick="spawnLuckByAdmin(6)">Spawn 6x Luck</button>
+            <button onclick="spawnLuckByAdmin(8)">Spawn 8x Luck</button>
+            <button onclick="spawnLuckByAdmin(10)">Spawn 10x Luck</button>
+          </div>
+          <div>
+            <button onclick="spawnTraitEvent('taco')">Spawn Raining Taco Trait Event</button>
+            <button onclick="spawnTraitEvent('flare')">Spawn Solar Flare Trait Event</button>
+            <button onclick="spawnAllEventsSnap()">Snap (Spawn All Traits & Mutations & Music)</button>
+          </div>
+        </div>
+
+        <div id="tester-cheats" style="display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px;">
+          <h3>Tester Cheats (TESTER Password)</h3>
+          <div>
+            <button onclick="giveAllUpgradesTester()">Give All Upgrades (x100)</button>
+            <button onclick="setAllUpgradeCostsToZeroTester()">Set All Upgrade Costs to 0</button>
+            <button onclick="maxOutStatsTester()">Max Clicks/CPS/CPC</button>
+            <button onclick="optimizeGamePerformanceTester()">Optimize Game Performance</button>
+            <button onclick="hardResetTester()">Hard Reset Game</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="effect-display" class="effect-display"></div>
+
+    <!-- AI Helper HTML -->
+    <div id="ai-helper-button" onclick="toggleAIHelper()">🤖 AI Helper</div>
+    <div id="ai-helper-panel">
+      <div class="ai-header">
+        <span>AI Helper</span>
+        <button onclick="toggleAIHelper()">X</button>
+      </div>
+      <div class="ai-chat-body" id="ai-chat-body">
+        <p class="ai-message">Hello! I'm your game assistant. How can I help?</p>
+      </div>
+      <div class="ai-input">
+        <input type="text" id="ai-user-input" placeholder="Ask a question..." onkeydown="handleAIInput(event)">
+        <button onclick="sendAIQuestion()">Send</button>
+      </div>
+    </div>
+
+    <!-- Music Player HTML -->
+    <div id="music-player">
+      <h3>Game Music</h3>
+      <audio id="game-audio" loop></audio>
+      <select id="music-selector" onchange="changeMusicTrack()"></select>
+      <div id="music-controls">
+        <button id="play-music-button" onclick="playMusic()">▶ Play</button>
+        <button id="pause-music-button" onclick="pauseMusic()">⏸ Pause</button>
+      </div>
+      <iframe src="https://drive.google.com/file/d/1leiJ0h9tMOMF3HahHd9CftzN06JweLGU/preview" allow="autoplay"></iframe>
+      <label for="volume-slider">Volume:</label>
+      <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.5" oninput="setMusicVolume(this.value)">
+    </div>
+
+    <p class="copyright">Copyright David Cayax</p>
+    <p class="made-by-david">Made by David</p>
+
+    <div id="admin-countdown"></div>
+
+    <div id="admin-chat-box">
+      <div id="admin-chat-log"></div>
+      <input type="text" id="admin-chat-input" placeholder="Enter admin command...">
+    </div>
+
+<script>
+  const initialUpgrades = [
+    { id: 'grandma', name: 'Grandma', baseCost: 10, costMultiplier: 1.15, cpsPerPurchase: 10, cpcPerPurchase: 0, owned: 0, icon: '👵', traits: [], mutations: [] },
+    { id: 'farm', name: 'Farm', baseCost: 100, costMultiplier: 1.15, cpsPerPurchase: 50, cpcPerPurchase: 0, owned: 0, icon: '🌾', traits: [], mutations: [] },
+    { id: 'mine', name: 'Mine', baseCost: 500, costMultiplier: 1.15, cpsPerPurchase: 100, cpcPerPurchase: 0, owned: 0, icon: '⛏️', traits: [], mutations: [] },
+    { id: 'factory', name: 'Factory', baseCost: 2000, costMultiplier: 1.15, cpsPerPurchase: 200, cpcPerPurchase: 0, owned: 0, icon: '🏭', traits: [], mutations: [] },
+    { id: 'bank', name: 'Bank', baseCost: 10000, costMultiplier: 1.15, cpsPerPurchase: 500, cpcPerPurchase: 0, owned: 0, icon: '🏦', traits: [], mutations: [] },
+    { id: 'temple', name: 'Temple', baseCost: 50000, costMultiplier: 1.15, cpsPerPurchase: 1000, cpcPerPurchase: 0, owned: 0, icon: '⛩️', traits: [], mutations: [] },
+    { id: 'wizard_tower', name: 'Wizard Tower', baseCost: 200000, costMultiplier: 1.15, cpsPerPurchase: 2500, cpcPerPurchase: 0, owned: 0, icon: '🧙', traits: [], mutations: [] },
+    { id: 'cursor', name: 'Cursor Upgrade', baseCost: 15, costMultiplier: 1.1, cpsPerPurchase: 0, cpcPerPurchase: 0.1, owned: 0, icon: '🖱️', traits: [], mutations: [] },
+    { id: 'autoclicker', name: 'Autoclicker', baseCost: 1000, costMultiplier: 1.1, cpsPerPurchase: 0, cpcPerPurchase: 0.5, owned: 0, icon: '🤖', traits: [], mutations: [] },
+    { id: 'super_finger', name: 'Super Finger', baseCost: 5000, costMultiplier: 1.1, cpsPerPurchase: 0, cpcPerPurchase: 1, owned: 0, icon: '☝️', traits: [], mutations: [] },
+    { id: 'mega_clicker', name: 'Mega Clicker', baseCost: 500000, costMultiplier: 1.14, cpsPerPurchase: 5000, cpcPerPurchase: 0, owned: 0, icon: '💪', traits: [], mutations: [] },
+    { id: 'ultra_family', name: 'Ultra Family Farm', baseCost: 2000000, costMultiplier: 1.14, cpsPerPurchase: 10000, cpcPerPurchase: 0, owned: 0, icon: '👨‍👩‍👧‍👦', traits: [], mutations: [] },
+    { id: 'giant_mine', name: 'Giant Mine', baseCost: 7000000, costMultiplier: 1.14, cpsPerPurchase: 20000, cpcPerPurchase: 0, owned: 0, icon: '🏔️', traits: [], mutations: [] },
+    { id: 'space_factory', name: 'Space Factory', baseCost: 25000000, costMultiplier: 1.14, cpsPerPurchase: 40000, cpcPerPurchase: 0, owned: 0, icon: '🚀', traits: [], mutations: [] },
+    { id: 'bank_tower', name: 'Bank Tower', baseCost: 80000000, costMultiplier: 1.13, cpsPerPurchase: 80000, cpcPerPurchase: 0, owned: 0, icon: '🏢', traits: [], mutations: [] },
+    { id: 'quantum_temple', name: 'Quantum Temple', baseCost: 300000000, costMultiplier: 1.13, cpsPerPurchase: 150000, cpcPerPurchase: 0, owned: 0, icon: '🌌', traits: [], mutations: [] },
+    { id: 'wizard_castle', name: 'Wizard Castle', baseCost: 900000000, costMultiplier: 1.13, cpsPerPurchase: 300000, cpcPerPurchase: 0, owned: 0, icon: '🏰', traits: [], mutations: [] },
+    { id: 'cyber_cursor', name: 'Cyber Cursor', baseCost: 3000000000, costMultiplier: 1.12, cpsPerPurchase: 0, cpcPerPurchase: 5, owned: 0, icon: '🖥️', traits: [], mutations: [] },
+    { id: 'nano_autoclicker', name: 'Nano Autoclicker', baseCost: 10000000000, costMultiplier: 1.12, cpsPerPurchase: 0, cpcPerPurchase: 10, owned: 0, icon: '🧬', traits: [], mutations: [] },
+    { id: 'super_finger_plus', name: 'Super Finger Plus', baseCost: 50000000000, costMultiplier: 1.12, cpsPerPurchase: 0, cpcPerPurchase: 20, owned: 0, icon: '🤌', traits: [], mutations: [] },
+    { id: 'rainbow', name: 'Rainbow Multiplier', baseCost: 250000000000, costMultiplier: 1.15, cpsPerPurchase: 0, cpcPerPurchase: 0, owned: 0, icon: '🌈', traits: [], mutations: ['rainbow'] }
+  ];
+
+  let clicks = 0;
+  let cps = 0;
+  let cpc = 1;
+
+  let rebirths = 0;
+  let rebirthRequirement = 1000000;
+  let cpsMultiplier = 1;
+
+  let upgrades = JSON.parse(JSON.stringify(initialUpgrades));
+
+  let activeEffect = null;
+  let effectEndTime = 0;
+  let originalCpc = cpc;
+  let originalCps = cps;
+
+  let globalAnnouncement = '';
+
+  const luckMultipliersShop = [
+    { type: 2, name: '2x Luck', price: 500000 },
+    { type: 4, name: '4x Luck', price: 2500000 },
+  ];
+  const adminLuckMultipliers = [
+    { type: 6, name: '6x Luck' },
+    { type: 8, name: '8x Luck' },
+    { type: 10, name: '10x Luck' },
+  ];
+
+  let luckMultiplier = 1;
+  let ownedLuck = {2:0,4:0,6:0,8:0,10:0};
+
+  const clicksDisplay = document.getElementById('clicks-display');
+  const cpsDisplay = document.getElementById('cps-display');
+  const cpcDisplay = document.getElementById('cpc-display');
+  const cookieButton = document.getElementById('cookie');
+  const upgradesList = document.getElementById('upgrades-list');
+  const adminPanel = document.getElementById('admin-panel');
+  const adminPasswordInput = document.getElementById('admin-password');
+  const adminCheatsDiv = document.getElementById('admin-cheats');
+  const testerCheatsDiv = document.getElementById('tester-cheats');
+  const effectDisplay = document.getElementById('effect-display');
+  const globalAnnouncementDisplay = document.getElementById('global-announcement-display');
+
+  const rebirthsDisplay = document.getElementById('rebirths-display');
+  const rebirthReqDisplay = document.getElementById('rebirth-req-display');
+  const rebirthButton = document.getElementById('rebirth-button');
+
+  const viewLogsButton = document.getElementById('view-logs-button');
+  const updateLogsDisplay = document.getElementById('update-logs-display');
+
+  const ownedUpgradesScreen = document.getElementById('owned-upgrades-screen');
+  const ownedUpgradesList = document.getElementById('owned-upgrades-list');
+  const closeOwnedUpgradesBtn = document.getElementById('close-owned-upgrades');
+  const viewOwnedUpgradesButton = document.getElementById('view-owned-upgrades-button');
+
+  const luckShopDiv = document.getElementById('luck-items');
+  const luckMultiplierDisplay = document.getElementById('luck-multiplier-display');
+
+  const radioactiveStatus = document.getElementById('radioactive-status');
+  const radioactiveTimerElement = document.getElementById('radioactive-timer');
+
+  const adminChatInput = document.getElementById('admin-chat-input');
+  const adminChatLog = document.getElementById('admin-chat-log');
+
+  const conveyorBeltInner = document.getElementById('conveyor-belt-inner');
+
+  const musicTracks = [
+    { name: 'Chill Groove', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
+    { name: 'Upbeat Tune', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
+    { name: 'Relaxing Beat', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
+    { name: 'Epic Journey', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
+    { name: 'Synthwave Dream', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
+    // Additional music for snap event:
+    { name: 'Taco Fiesta Groove', url: 'https://assets.mixkit.co/music/preview/mixkit-5-minute-festival-ambience-507.mp3' }, // taco-ish vibe
+    { name: 'Daft Punk Style Action', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3' }
+  ];
+
+  const gameAudio = document.getElementById('game-audio');
+  const musicSelector = document.getElementById('music-selector');
+  const playMusicButton = document.getElementById('play-music-button');
+  const pauseMusicButton = document.getElementById('pause-music-button');
+  const volumeSlider = document.getElementById('volume-slider');
+
+  let radioactiveEventActive = false;
+  let radioactiveUpgrades = new Set();
+
+  let rainbowEventActive = false;
+  let rainbowUpgrades = new Set();
+
+  // Traits events control:
+  let tacoEventActive = false;
+  let flareEventActive = false;
+
+  // Traits and mutations
+  const possibleMutations = ['radioactive', 'rainbow'];
+  const possibleTraits = ['taco', 'solar_flare']; // solar flare means fire trait
+
+  // Timer and animation control for conveyor belt
+  let conveyorAnimationFrame = null;
+  let conveyorSpeed = 60; // pixels per second
+
+  // Upgrade conveyor belt items array (duplicates allowed)
+  let conveyorUpgrades = [];
+
+  // Initialize music selector options
+  function initializeMusicPlayer() {
+    musicSelector.innerHTML = '';
+    musicTracks.forEach((track, index) => {
+      const option = document.createElement('option');
+      option.value = index;
+      option.textContent = track.name;
+      musicSelector.appendChild(option);
+    });
+    if (musicTracks.length > 0) {
+      gameAudio.src = musicTracks[0].url;
+    }
+    gameAudio.volume = parseFloat(volumeSlider.value);
+  }
+  function playMusic() {
+    gameAudio.play().catch(error => {
+      console.error("Autoplay prevented:", error);
+      alert("Browser prevented autoplay. Please interact with the page first (e.g., click the cookie) then try playing music.");
+    });
+  }
+  function pauseMusic() {
+    gameAudio.pause();
+  }
+  function changeMusicTrack() {
+    const selectedIndex = musicSelector.value;
+    gameAudio.src = musicTracks[selectedIndex].url;
+    playMusic();
+  }
+  function setMusicVolume(volume) {
+    gameAudio.volume = volume;
+  }
+
+  // Luck multiplier functions
+  function recalcLuckMultiplier() {
+    let highest = 1;
+    Object.keys(ownedLuck).forEach(lvl => {
+      if (ownedLuck[lvl] > 0 && Number(lvl) > highest) {
+        highest = Number(lvl);
+      }
+    });
+    luckMultiplier = highest;
+    luckMultiplierDisplay.textContent = `x${luckMultiplier}`;
+  }
+
+  function buyLuck(type) {
+    const luckItem = luckMultipliersShop.find(x => x.type === type);
+    if (!luckItem) return;
+
+    if (ownedLuck[type] > 0) {
+      const refundAmount = Math.floor(luckItem.price * 0.5);
+      clicks += refundAmount;
+      alert(`You already own this luck multiplier. Refunded ${refundAmount.toLocaleString()} clicks instead.`);
+      updateUI();
+      return;
+    }
+
+    if (clicks >= luckItem.price) {
+      clicks -= luckItem.price;
+      ownedLuck[type]++;
+      recalcLuckMultiplier();
+      updateUI();
+      alert(`You bought a ${luckItem.name}! Luck multiplier set.`);
+      renderLuckShop();
+    } else {
+      alert(`You need ${luckItem.price.toLocaleString()} clicks to buy ${luckItem.name}.`);
+    }
+  }
+  function spawnLuckByAdmin(type) {
+    if (!adminCheatsDiv.style.display || adminCheatsDiv.style.display === 'none') {
+      alert("Admin access required for this command.");
+      return;
+    }
+    if (!adminLuckMultipliers.find(x => x.type === type)) {
+      alert("Invalid luck multiplier type.");
+      return;
+    }
+    if (ownedLuck[type] > 0) {
+      alert(`Luck multiplier ${type}x already owned.`);
+      return;
+    }
+    ownedLuck[type] = 1;
+    recalcLuckMultiplier();
+    updateUI();
+    alert(`Admin spawned ${type}x luck multiplier!`);
+  }
+  function renderLuckShop() {
+    luckShopDiv.innerHTML = '';
+    luckMultipliersShop.forEach(lm => {
+      const div = document.createElement('div');
+      div.className = 'luck-item';
+      const owned = ownedLuck[lm.type] || 0;
+      div.innerHTML = `<span>${lm.name} - ${lm.price.toLocaleString()} clicks (Owned: ${owned})</span>`;
+      const btn = document.createElement('button');
+      btn.textContent = 'Buy';
+      btn.disabled = clicks < lm.price;
+      btn.onclick = () => buyLuck(lm.type);
+      div.appendChild(btn);
+      luckShopDiv.appendChild(div);
+    });
+  }
+
+  function calculateUpgradeCost(upgrade) {
+    let cost = upgrade.baseCost * Math.pow(upgrade.costMultiplier, upgrade.owned);
+    if (activeEffect && activeEffect.type === 'discount') {
+      cost *= activeEffect.multiplier;
+    }
+    return cost;
+  }
+
+  function maybeAddTraitToUpgrade(upgrade) {
+    if (!tacoEventActive && !flareEventActive) return;
+    if (upgrade.owned === 0) return;
+
+    const rand = Math.random();
+
+    if (tacoEventActive && !upgrade.traits.includes('taco') && rand < 0.04) {
+      upgrade.traits.push('taco');
+      upgrade._tacoMultiplier = 5;
+      updateUI();
+      return;
+    }
+    if (flareEventActive && !upgrade.traits.includes('solar_flare') && rand < 0.03) {
+      upgrade.traits.push('solar_flare');
+      updateUI();
+      return;
+    }
+  }
+
+  function clearAllTraits() {
+    upgrades.forEach(upg => {
+      upg.traits = [];
+      delete upg._tacoMultiplier;
+    });
+  }
+
+  function hasMutation(upgrade, name) {
+    return upgrade.mutations.includes(name);
+  }
+  function hasTrait(upgrade, name) {
+    return upgrade.traits.includes(name);
+  }
+
+  function addMutationToUpgrade(upgrade, name) {
+    if (!upgrade.mutations.includes(name)) {
+      upgrade.mutations.push(name);
+    }
+  }
+  function removeMutationFromUpgrade(upgrade, name) {
+    const idx = upgrade.mutations.indexOf(name);
+    if (idx !== -1) {
+      upgrade.mutations.splice(idx, 1);
+    }
+  }
+
+  function startRadioactiveEvent() {
+    if (radioactiveEventActive) return;
+    radioactiveEventActive = true;
+    radioactiveUpgrades.clear();
+    for(let u of upgrades) {
+      removeMutationFromUpgrade(u, 'radioactive');
+    }
+    radioactiveStatus.style.display = 'block';
+    adminAnnounce("David: Radioactive event started! Upgrades may become radioactive for 15 min!");
+  }
+  function stopRadioactiveEvent() {
+    if (!radioactiveEventActive) return;
+    radioactiveEventActive = false;
+    for(let upg of upgrades){
+      if(hasMutation(upg, 'radioactive')) {
+        upg.cpsPerPurchase /= 5;
+        upg.cpcPerPurchase /= 5;
+        removeMutationFromUpgrade(upg, 'radioactive');
+      }
+    }
+    radioactiveUpgrades.clear();
+    radioactiveStatus.style.display = 'none';
+    adminAnnounce("David: Radioactive event stopped.");
+  }
+
+  let rainbowMutationActive = false;
+  function startRainbowEvent() {
+    if (rainbowEventActive) return;
+    rainbowEventActive = true;
+    rainbowUpgrades.clear();
+    for(let u of upgrades) {
+      removeMutationFromUpgrade(u, 'rainbow');
+    }
+    adminAnnounce("Rainbow event started! Upgrades may become rainbow!");
+  }
+  function stopRainbowEvent() {
+    if (!rainbowEventActive) return;
+    rainbowEventActive = false;
+    for(let upg of upgrades){
+      if(hasMutation(upg, 'rainbow')) {
+        upg.cpsPerPurchase /= 100;
+        upg.cpcPerPurchase /= 100;
+        removeMutationFromUpgrade(upg, 'rainbow');
+      }
+    }
+    rainbowUpgrades.clear();
+    adminAnnounce("Rainbow event stopped.");
+  }
+
+  function spawnTraitEvent(traitName) {
+    if (traitName === 'taco') {
+      tacoEventActive = true;
+      adminAnnounce("Raining Taco Trait Event started! Taco may appear on conveyor upgrades!");
+      setTimeout(() => {
+        tacoEventActive = false;
+        upgrades.forEach(u => {
+          u.traits = u.traits.filter(t => t !== 'taco');
+          delete u._tacoMultiplier;
+        });
+        adminAnnounce("Raining Taco Trait Event ended.");
+        updateUI();
+      }, 15 * 60 * 1000);
+    }
+    else if (traitName === 'flare') {
+      flareEventActive = true;
+      adminAnnounce("Solar Flare Trait Event started! Sun beams may hit conveyor upgrades!");
+      setTimeout(() => {
+        flareEventActive = false;
+        upgrades.forEach(u => {
+          u.traits = u.traits.filter(t => t !== 'solar_flare');
+        });
+        adminAnnounce("Solar Flare Trait Event ended.");
+        updateUI();
+      }, 15 * 60 * 1000);
+    }
+  }
+
+  function spawnAllEventsSnap() {
+    startRadioactiveEvent();
+    startRainbowEvent();
+    tacoEventActive = true;
+    flareEventActive = true;
+    adminAnnounce("Snap! All traits and mutation events spawned! Enjoy the show!");
+
+    upgrades.forEach(u => {
+      u.traits = [];
+      u.mutations = u.mutations || [];
+      delete u._tacoMultiplier;
+    });
+
+    const snapMusicIndices = [5,6];
+    const idx = snapMusicIndices[Math.floor(Math.random() * snapMusicIndices.length)];
+    musicSelector.value = idx;
+    changeMusicTrack();
+
+    setTimeout(() => {
+      tacoEventActive = false;
+      flareEventActive = false;
+      stopRadioactiveEvent();
+      stopRainbowEvent();
+      adminAnnounce("Snap events ended.");
+      upgrades.forEach(u => {
+        u.traits = [];
+        delete u._tacoMultiplier;
+      });
+      updateUI();
+    }, 15 * 60 * 1000);
+  }
+
+  function showRadioactiveSign(upgradeId) {
+    const button = document.getElementById(`buy-${upgradeId}`);
+    if (!button) return;
+    if (button.querySelector('.radioactive-sign')) return;
+    const sign = document.createElement('span');
+    sign.className = 'radioactive-sign';
+    sign.textContent = 'Rad!';
+    button.style.position = 'relative';
+    button.appendChild(sign);
+  }
+  function removeRadioactiveSign(upgradeId) {
+    const button = document.getElementById(`buy-${upgradeId}`);
+    if (!button) return;
+    const sign = button.querySelector('.radioactive-sign');
+    if (sign) sign.remove();
+  }
+  function showRainbowSign(upgradeId) {
+    const button = document.getElementById(`buy-${upgradeId}`);
+    if (!button) return;
+    if (button.querySelector('.rainbow-sign')) return;
+    const sign = document.createElement('span');
+    sign.className = 'rainbow-sign';
+    sign.textContent = 'Rainbow!';
+    button.style.position = 'relative';
+    button.appendChild(sign);
+  }
+  function removeRainbowSign(upgradeId) {
+    const button = document.getElementById(`buy-${upgradeId}`);
+    if (!button) return;
+    const sign = button.querySelector('.rainbow-sign');
+    if (sign) sign.remove();
+  }
+
+  function showTacoSign(upgradeId) {
+    const button = document.getElementById(`buy-${upgradeId}`);
+    if (!button) return;
+    if (button.querySelector('.taco-emoji')) return;
+    const taco = document.createElement('span');
+    taco.className = 'taco-emoji';
+    taco.textContent = '🌮';
+    button.style.position = 'relative';
+    button.appendChild(taco);
+  }
+  function removeTacoSign(upgradeId) {
+    const button = document.getElementById(`buy-${upgradeId}`);
+    if (!button) return;
+    const taco = button.querySelector('.taco-emoji');
+    if (taco) taco.remove();
+  }
+
+  // Update conveyor belt array and animation
+  function updateConveyorBelt() {
+    conveyorUpgrades = [];
+    upgrades.forEach(upg => {
+      for(let i=0;i<upg.owned;i++) {
+        conveyorUpgrades.push(upg);
+      }
+    });
+
+    shuffleArray(conveyorUpgrades);
+
+    conveyorBeltInner.innerHTML = '';
+
+    conveyorUpgrades.forEach(upg => {
+      const div = document.createElement('div');
+      div.className = 'conveyor-upgrade';
+      div.textContent = upg.icon;
+
+      if (hasTrait(upg, 'taco')) {
+        div.classList.add('taco-trait');
+        const tacoEmoji = document.createElement('span');
+        tacoEmoji.className = 'taco-emoji';
+        tacoEmoji.textContent = '🌮';
+        div.appendChild(tacoEmoji);
+      }
+
+      if (hasTrait(upg, 'solar_flare')) {
+        div.classList.add('fire-trait');
+        const fireEmoji = document.createElement('span');
+        fireEmoji.className = 'fire-emoji';
+        fireEmoji.textContent = '🔥';
+        div.appendChild(fireEmoji);
+      }
+
+      if (hasMutation(upg, 'radioactive')) {
+        div.style.boxShadow = '0 0 14px 8px #00ff00 inset, 0 0 18px 6px #00ff00';
+      }
+      if (hasMutation(upg, 'rainbow')) {
+        div.style.boxShadow = '0 0 14px 8px violet inset, 0 0 18px 6px violet';
+      }
+
+      conveyorBeltInner.appendChild(div);
+    });
+
+    adjustConveyorBeltWidth();
+    startConveyorAnimation();
+  }
+
+  function shuffleArray(arr) {
+    for(let i=arr.length-1; i>0; i--) {
+      const j = Math.floor(Math.random() * (i+1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  }
+
+  let conveyorPos = 0;
+  let lastTime = null;
+
+  // Adjust conveyor belt width for seamless loop
+  function adjustConveyorBeltWidth(){
+    // Duplicate items to help seamless scroll
+    const conveyorInner = conveyorBeltInner;
+    const children = Array.from(conveyorInner.children);
+
+    // Remove existing clones
+    children.forEach(c => {
+      if(c.classList.contains('clone')) c.remove();
+    });
+
+    // Duplicate all items for seamless transition
+    children.forEach(c => {
+      const clone = c.cloneNode(true);
+      clone.classList.add('clone');
+      conveyorInner.appendChild(clone);
+    });
+
+    // Now the width automatically updates with duplicated elements
+  }
+
+  function startConveyorAnimation() {
+    if (conveyorAnimationFrame) cancelAnimationFrame(conveyorAnimationFrame);
+    conveyorPos = 0;
+    lastTime = null;
+
+    function animate(time) {
+      if (!lastTime) {
+        lastTime = time;
+        conveyorAnimationFrame = requestAnimationFrame(animate);
+        return;
+      }
+      const delta = (time - lastTime) / 1000;
+      lastTime = time;
+      conveyorPos -= conveyorSpeed * delta;
+      const totalWidth = conveyorBeltInner.scrollWidth / 2; // Half, because we duplicated elements
+      if (conveyorPos <= -totalWidth) {
+        conveyorPos += totalWidth;
+      }
+      conveyorBeltInner.style.transform = `translateX(${conveyorPos}px)`;
+      conveyorAnimationFrame = requestAnimationFrame(animate);
+    }
+    conveyorAnimationFrame = requestAnimationFrame(animate);
+  }
+
+  function conveyorTraitMutationTick() {
+    if (conveyorUpgrades.length === 0) return;
+    const idx = Math.floor(Math.random() * conveyorUpgrades.length);
+    const upgrade = conveyorUpgrades[idx];
+
+    if (radioactiveEventActive && !hasMutation(upgrade, 'radioactive') && Math.random() < 0.05) {
+      upgrade.cpsPerPurchase *= 5;
+      upgrade.cpcPerPurchase *= 5;
+      addMutationToUpgrade(upgrade, 'radioactive');
+      adminAnnounce(`Upgrade ${upgrade.name} became RADIOACTIVE! 5x boost!`);
+      updateUI();
+    } else if (rainbowEventActive && !hasMutation(upgrade, 'rainbow') && Math.random() < 0.02) {
+      upgrade.cpsPerPurchase *= 100;
+      upgrade.cpcPerPurchase *= 100;
+      addMutationToUpgrade(upgrade, 'rainbow');
+      adminAnnounce(`Upgrade ${upgrade.name} became RAINBOW! 100x boost!`);
+      updateUI();
+    }
+
+    maybeAddTraitToUpgrade(upgrade);
+
+    updateUI();
+  }
+
+  function buyUpgrade(upgradeId) {
+    const upgrade = upgrades.find(u => u.id === upgradeId);
+    if (!upgrade) return;
+    const upgradeCost = calculateUpgradeCost(upgrade);
+    if (clicks >= upgradeCost) {
+      clicks -= upgradeCost;
+      upgrade.owned++;
+      let multiplierCps = 1;
+      let multiplierCpc = 1;
+      if (upgrade._tacoMultiplier) {
+        multiplierCps = upgrade._tacoMultiplier;
+        multiplierCpc = upgrade._tacoMultiplier;
+      }
+      cps += upgrade.cpsPerPurchase * multiplierCps;
+      cpc += upgrade.cpcPerPurchase * multiplierCpc;
+      updateUI();
+      updateConveyorBelt();
+    }
+  }
+
+  function initializeUpgrades() {
+    upgradesList.innerHTML = '';
+    upgrades.forEach(upgrade => {
+      const upgradeCost = calculateUpgradeCost(upgrade);
+      const upgradeDiv = document.createElement('div');
+      upgradeDiv.className = 'upgrade-item';
+      upgradeDiv.id = `upgrade-item-${upgrade.id}`;
+      upgradeDiv.innerHTML = `
+        <span style="font-size: 1.6em; margin-right: 10px; user-select:none;">${upgrade.icon}</span>
+        <span style="flex-grow: 1;">
+          <strong>${upgrade.name}</strong><br>
+          Cost: <span id="cost-${upgrade.id}">${Math.floor(upgradeCost).toLocaleString()}</span> clicks<br>
+          Owned: <span id="owned-${upgrade.id}">${upgrade.owned}</span>
+          ${upgrade.cpsPerPurchase > 0 ? ` (+${upgrade.cpsPerPurchase} CPS)` : ''}
+          ${upgrade.cpcPerPurchase > 0 ? ` (+${upgrade.cpcPerPurchase} CPC)` : ''}
+        </span>
+        <button id="buy-${upgrade.id}" onclick="buyUpgrade('${upgrade.id}')">Buy</button>
+      `;
+      upgradesList.appendChild(upgradeDiv);
+    });
+  }
+
+  // Render owned upgrades with grouping and fixed layout
+  function renderOwnedUpgrades() {
+    ownedUpgradesList.innerHTML = '';
+
+    const groups = {};
+
+    const traitGroups = [...possibleTraits.map(t => `trait-${t}`)];
+    const mutationGroups = [...possibleMutations.map(m => `mutation-${m}`)];
+    const noTraitMutationGroup = 'normal';
+
+    traitGroups.forEach(g => groups[g] = []);
+    mutationGroups.forEach(g => groups[g] = []);
+    groups[noTraitMutationGroup] = [];
+
+    upgrades.forEach(upg => {
+      if (upg.owned <= 0) return;
+
+      let addedToGroup = false;
+      possibleMutations.forEach(mutation => {
+        if (hasMutation(upg, mutation)) {
+          groups[`mutation-${mutation}`].push(upg);
+          addedToGroup = true;
+        }
+      });
+      possibleTraits.forEach(trait => {
+        if (hasTrait(upg, trait)) {
+          groups[`trait-${trait}`].push(upg);
+          addedToGroup = true;
+        }
+      });
+
+      if (!addedToGroup) groups[noTraitMutationGroup].push(upg);
+    });
+
+    function renderGroup(name, displayName) {
+      const container = document.createElement('div');
+      container.className = 'trait-group';
+      const title = document.createElement('h3');
+      title.textContent = displayName;
+      container.appendChild(title);
+      if (groups[name].length === 0) {
+        const p = document.createElement('p');
+        p.textContent = "You do not own any upgrades with this trait/mutation.";
+        container.appendChild(p);
+      } else {
+        const cardsContainer = document.createElement('div');
+        cardsContainer.style.display = 'flex';
+        cardsContainer.style.flexWrap = 'wrap';
+        cardsContainer.style.gap = '10px';
+        container.appendChild(cardsContainer);
+
+        groups[name].forEach(upg => {
+          const card = document.createElement('div');
+          card.className = 'owned-upgrade-card';
+          card.classList.toggle('taco-trait', hasTrait(upg, 'taco'));
+          card.classList.toggle('fire-trait', hasTrait(upg, 'solar_flare'));
+          card.classList.toggle('radioactive', hasMutation(upg, 'radioactive'));
+          card.classList.toggle('rainbow', hasMutation(upg, 'rainbow'));
+          card.innerHTML = `
+            <div class="icon">${upg.icon}</div>
+            <div>${upg.name} (Count: ${upg.owned})</div>
+            <div class="trait-labels"></div>
+          `;
+          const labelsDiv = card.querySelector('.trait-labels');
+          upg.traits.forEach(trait => {
+            if(trait==='taco'){
+              const elem = document.createElement('span');
+              elem.textContent = '🌮 ×5';
+              labelsDiv.appendChild(elem);
+            } else if (trait === 'solar_flare') {
+              const elem = document.createElement('span');
+              elem.textContent = '🔥 Fire Aura';
+              labelsDiv.appendChild(elem);
+            }
+          });
+          upg.mutations.forEach(mut => {
+            if(mut==='radioactive'){
+              const elem = document.createElement('span');
+              elem.textContent = '☢️ Radioactive';
+              labelsDiv.appendChild(elem);
+            } else if (mut==='rainbow'){
+              const elem = document.createElement('span');
+              elem.textContent = '🌈 Rainbow';
+              labelsDiv.appendChild(elem);
+            }
+          });
+          cardsContainer.appendChild(card);
+        });
+      }
+      ownedUpgradesList.appendChild(container);
+    }
+
+    renderGroup('mutation-rainbow', 'Rainbow Upgrades');
+    renderGroup('mutation-radioactive', 'Radioactive Upgrades');
+    renderGroup('trait-taco', 'Taco Trait Upgrades');
+    renderGroup('trait-solar_flare', 'Solar Flare Trait Upgrades');
+    renderGroup('normal', 'Normal Upgrades');
+  }
+
+  // Update UI for stats, upgrades and signs
+  function updateUI() {
+    clicksDisplay.textContent = Math.floor(clicks).toLocaleString();
+    cpsDisplay.textContent = (cps * cpsMultiplier).toFixed(1);
+    cpcDisplay.textContent = cpc.toFixed(1);
+    luckMultiplierDisplay.textContent = `x${luckMultiplier}`;
+
+    upgrades.forEach(upgrade => {
+      const upgradeCost = calculateUpgradeCost(upgrade);
+      const button = document.getElementById(`buy-${upgrade.id}`);
+      const costSpan = document.getElementById(`cost-${upgrade.id}`);
+      const ownedSpan = document.getElementById(`owned-${upgrade.id}`);
+      if (costSpan) costSpan.textContent = Math.floor(upgradeCost).toLocaleString();
+      if (ownedSpan) ownedSpan.textContent = upgrade.owned;
+      if (button) button.disabled = clicks < upgradeCost;
+
+      removeRadioactiveSign(upgrade.id);
+      removeRainbowSign(upgrade.id);
+      removeTacoSign(upgrade.id);
+
+      if(hasMutation(upgrade,'radioactive')) showRadioactiveSign(upgrade.id);
+      if(hasMutation(upgrade,'rainbow')) showRainbowSign(upgrade.id);
+      if(hasTrait(upgrade,'taco')) showTacoSign(upgrade.id);
+    });
+
+    if (activeEffect) {
+      effectDisplay.style.display = 'block';
+      const timeLeft = Math.max(0, Math.ceil((effectEndTime - Date.now()) / 1000));
+      effectDisplay.textContent = `${activeEffect.name} active! (${timeLeft}s)`;
+    } else {
+      effectDisplay.style.display = 'none';
+    }
+
+    rebirthsDisplay.textContent = rebirths;
+    rebirthReqDisplay.textContent = rebirthRequirement.toLocaleString();
+    rebirthButton.disabled = clicks < rebirthRequirement;
+
+    if (globalAnnouncement) {
+      globalAnnouncementDisplay.textContent = `📢 ${globalAnnouncement}`;
+      globalAnnouncementDisplay.style.display = 'block';
+    } else {
+      globalAnnouncementDisplay.style.display = 'none';
+    }
+
+    renderLuckShop();
+    updateConveyorBelt();
+  }
+
+  function clickCookie() {
+    clicks += cpc;
+    updateUI();
+  }
+
+  let goldenCookieTimeout;
+  let goldenCookieElement = null;
+
+  function spawnGoldenCookie() {
+    if (goldenCookieElement) return;
+    goldenCookieElement = document.createElement('div');
+    goldenCookieElement.className = 'golden-cookie';
+    goldenCookieElement.textContent = '🌟';
+    goldenCookieElement.style.left = `${Math.random() * (window.innerWidth - 100)}px`;
+    goldenCookieElement.style.top = `${Math.random() * (window.innerHeight - 100)}px`;
+    goldenCookieElement.onclick = activateGoldenCookieEffect;
+    document.body.appendChild(goldenCookieElement);
+    setTimeout(() => {
+      if (goldenCookieElement) {
+        goldenCookieElement.remove();
+        goldenCookieElement = null;
+      }
+    }, 10000);
+  }
+
+  function activateGoldenCookieEffect() {
+    if (!goldenCookieElement) return;
+    goldenCookieElement.remove();
+    goldenCookieElement = null;
+    clearTimeout(goldenCookieTimeout);
+
+    const effects = [
+      { name: '2x Clicks!', type: 'cpc_multiplier', duration: 15000, multiplier: 2 },
+      { name: '50% Off Upgrades!', type: 'discount', duration: 20000, multiplier: 0.5 },
+      { name: 'Frenzy! (10x CPS)', type: 'cps_multiplier', duration: 10000, multiplier: 10 },
+      { name: 'Bonus Clicks!', type: 'instant_clicks', amount: clicks * 0.1 + 1000 },
+    ];
+    const randomEffect = effects[Math.floor(Math.random() * effects.length)];
+
+    originalCpc = cpc;
+    originalCps = cps;
+
+    if (randomEffect.type === 'cpc_multiplier') {
+      cpc *= randomEffect.multiplier;
+    } else if (randomEffect.type === 'cps_multiplier') {
+      cps *= randomEffect.multiplier;
+    } else if (randomEffect.type === 'instant_clicks') {
+      clicks += randomEffect.amount;
+    }
+
+    activeEffect = randomEffect;
+    effectEndTime = Date.now() + randomEffect.duration;
+    updateUI();
+
+    setTimeout(() => {
+      if (activeEffect && activeEffect.name === randomEffect.name) {
+        if (activeEffect.type === 'cpc_multiplier') { cpc = originalCpc; }
+        else if (activeEffect.type === 'cps_multiplier') { cps = originalCps; }
+        activeEffect = null;
+        effectEndTime = 0;
+        updateUI();
+      }
+    }, randomEffect.duration);
+
+    scheduleGoldenCookieSpawn();
+  }
+
+  function scheduleGoldenCookieSpawn() {
+    const randomDelay = Math.random() * (60000 - 20000) + 20000;
+    goldenCookieTimeout = setTimeout(spawnGoldenCookie, randomDelay);
+  }
+
+  function showAdminPanel() {
+    adminPanel.style.display = 'flex';
+    adminPasswordInput.value = '';
+    adminCheatsDiv.style.display = 'none';
+    testerCheatsDiv.style.display = 'none';
+    updateLogsDisplay.style.display = 'none';
+  }
+
+  function hideAdminPanel() {
+    adminPanel.style.display = 'none';
+    adminCheatsDiv.style.display = 'none';
+    testerCheatsDiv.style.display = 'none';
+    updateLogsDisplay.style.display = 'none';
+  }
+
+  function checkAdminPassword() {
+    const password = adminPasswordInput.value;
+    if (password === 'David') {
+      alert('Admin access granted!');
+      adminCheatsDiv.style.display = 'block';
+      testerCheatsDiv.style.display = 'none';
+      updateLogsDisplay.style.display = 'none';
+    } else if (password === 'TESTER') {
+      alert('Tester access granted! Use with caution.');
+      adminCheatsDiv.style.display = 'block';
+      testerCheatsDiv.style.display = 'block';
+      updateLogsDisplay.style.display = 'none';
+    }
+    else {
+      alert('Incorrect password!');
+      adminCheatsDiv.style.display = 'none';
+      testerCheatsDiv.style.display = 'none';
+      updateLogsDisplay.style.display = 'none';
+    }
+  }
+
+  function giveClicksCheat() {
+    const amount = parseInt(document.getElementById('cheat-clicks-amount').value);
+    if (!isNaN(amount) && amount > 0) {
+      clicks += amount;
+      updateUI();
+      document.getElementById('cheat-clicks-amount').value = '';
+    } else {
+      alert('Please enter a valid positive number for clicks.');
+    }
+  }
+
+  function setClicksCheat() {
+    const amount = parseInt(document.getElementById('cheat-set-clicks').value);
+    if (!isNaN(amount) && amount >= 0) {
+      clicks = amount;
+      updateUI();
+      document.getElementById('cheat-set-clicks').value = '';
+    } else {
+      alert('Please enter a valid non-negative number for clicks.');
+    }
+  }
+
+  function setCpsCheat() {
+    const amount = parseInt(document.getElementById('cheat-set-cps').value);
+    if (!isNaN(amount) && amount >= 0) {
+      cps = amount;
+      updateUI();
+      document.getElementById('cheat-set-cps').value = '';
+    } else {
+      alert('Please enter a valid non-negative number for CPS.');
+    }
+  }
+
+  function setCpcCheat() {
+    const amount = parseInt(document.getElementById('cheat-set-cpc').value);
+    if (!isNaN(amount) && amount >= 0) {
+      cpc = amount;
+      updateUI();
+      document.getElementById('cheat-set-cpc').value = '';
+    } else {
+      alert('Please enter a valid non-negative number for CPC.');
+    }
+  }
+
+  function spawnGoldenCookiesCheat() {
+    const amount = parseInt(document.getElementById('cheat-golden-cookies-amount').value);
+    if (!isNaN(amount) && amount > 0) {
+      for (let i = 0; i < amount; i++) {
+        spawnGoldenCookie();
+      }
+      document.getElementById('cheat-golden-cookies-amount').value = '';
+    } else {
+      alert('Please enter a valid positive number for golden cookies.');
+    }
+  }
+
+  function setGlobalAnnouncement() {
+    const announcementInput = document.getElementById('announcement-text');
+    const message = announcementInput.value.trim();
+    if (message) {
+      globalAnnouncement = message;
+      alert('Announcement posted!');
+      announcementInput.value = '';
+      updateUI();
+    } else {
+      alert('Please enter a message for the announcement.');
+    }
+  }
+
+  function clearGlobalAnnouncement() {
+    globalAnnouncement = '';
+    alert('Announcement cleared!');
+    updateUI();
+  }
+
+  function rebirth() {
+    if (clicks >= rebirthRequirement) {
+      const confirmRebirth = confirm(`Are you sure you want to Rebirth? You will gain +2x CPS multiplier, but reset all clicks and upgrades. Next rebirth will cost ${Math.floor(rebirthRequirement * 10).toLocaleString()} clicks.`);
+      if (!confirmRebirth) return;
+      rebirths++;
+      cpsMultiplier *= 2;
+      clicks = 0;
+      cps = 0;
+      cpc = 1;
+      upgrades.forEach(upgrade => { upgrade.owned = 0; upgrade.traits = []; upgrade.mutations = []; delete upgrade._tacoMultiplier; });
+      ownedLuck = {2:0,4:0,6:0,8:0,10:0};
+      recalcLuckMultiplier();
+      if (activeEffect) { activeEffect = null; effectEndTime = 0; }
+      if (goldenCookieElement) { goldenCookieElement.remove(); goldenCookieElement = null; }
+      clearTimeout(goldenCookieTimeout);
+      scheduleGoldenCookieSpawn();
+      initializeUpgrades();
+      adminAnnounce("Rebirth! All upgrades reset.");
+      updateUI();
+    } else {
+      alert(`You need ${rebirthRequirement.toLocaleString()} clicks to Rebirth.`);
+    }
+  }
+
+  function adminAnnounce(msg) {
+    globalAnnouncement = msg;
+    updateUI();
+  }
+
+  function processAdminCommand(cmdLine) {
+    if (!cmdLine.startsWith('/')) {
+      logAdminChat("Invalid command. Commands must start with '/'.");
+      return;
+    }
+    const parts = cmdLine.trim().split(' ');
+    const cmd = parts[0].toLowerCase();
+    const args = parts.slice(1);
+
+    switch(cmd) {
+      case '/setclicks':
+        const clicksVal = Number(args[0]);
+        if (!isNaN(clicksVal) && clicksVal >= 0) { clicks = clicksVal; updateUI(); logAdminChat(`Clicks set to ${clicksVal}.`); }
+        else { logAdminChat("Invalid number for /setclicks."); }
+        break;
+      case '/setcps':
+        const cpsVal = Number(args[0]);
+        if (!isNaN(cpsVal) && cpsVal >= 0) { cps = cpsVal; updateUI(); logAdminChat(`CPS set to ${cpsVal}.`); }
+        else { logAdminChat("Invalid number for /setcps."); }
+        break;
+      case '/setcpc':
+        const cpcVal = Number(args[0]);
+        if (!isNaN(cpcVal) && cpcVal >= 0) { cpc = cpcVal; updateUI(); logAdminChat(`CPC set to ${cpcVal}.`); }
+        else { logAdminChat("Invalid number for /setcpc."); }
+        break;
+      case '/spawncookies':
+        const cookCount = Number(args[0]);
+        if (!isNaN(cookCount) && cookCount > 0) { for(let i=0;i<cookCount;i++) spawnGoldenCookie(); logAdminChat(`Spawned ${cookCount} golden cookies.`); }
+        else { logAdminChat("Invalid number for /spawncookies."); }
+        break;
+      case '/announce':
+        const msg = args.join(' ');
+        if(msg.length > 0) { globalAnnouncement = msg; updateUI(); logAdminChat(`Announcement posted: ${msg}`); }
+        else { logAdminChat("Usage: /announce <message>"); }
+        break;
+      case '/radioactivestart':
+        if (!radioactiveEventActive) { startRadioactiveEvent(); logAdminChat('Radioactive event started via command.'); }
+        else { logAdminChat('Radioactive event is already active.'); }
+        break;
+      case '/radioactivestop':
+        if (radioactiveEventActive) { stopRadioactiveEvent(); logAdminChat('Radioactive event stopped via command.'); }
+        else { logAdminChat('Radioactive event is not active.'); }
+        break;
+      case '/godmode':
+        upgrades.forEach(upgrade => {
+          if (!hasMutation(upgrade,'radioactive')) {
+            upgrade.cpsPerPurchase *= 5;
+            upgrade.cpcPerPurchase *= 5;
+            addMutationToUpgrade(upgrade, 'radioactive');
+          }
+        });
+        radioactiveEventActive = true;
+        radioactiveStatus.style.display = 'block';
+        adminAnnounce("David: GOD MODE activated! All upgrades are radioactive!");
+        updateUI();
+        break;
+      case '/godmode2':
+        upgrades.forEach(upgrade => {
+          if (!hasMutation(upgrade,'rainbow')) {
+            upgrade.cpsPerPurchase *= 100;
+            upgrade.cpcPerPurchase *= 100;
+            addMutationToUpgrade(upgrade, 'rainbow');
+          }
+          if (hasMutation(upgrade, 'radioactive')) {
+            upgrade.cpsPerPurchase /= 5;
+            upgrade.cpcPerPurchase /= 5;
+            removeMutationFromUpgrade(upgrade, 'radioactive');
+          }
+        });
+        rainbowEventActive = true;
+        radioactiveStatus.style.display = 'none';
+        adminAnnounce("David: GOD MODE 2 activated! All upgrades are rainbow!");
+        updateUI();
+        break;
+      case '/spawntaco':
+        spawnTraitEvent('taco');
+        logAdminChat("Spawned Raining Taco trait event.");
+        break;
+      case '/spawnflare':
+        spawnTraitEvent('flare');
+        logAdminChat("Spawned Solar Flare trait event.");
+        break;
+      case '/snap':
+        spawnAllEventsSnap();
+        logAdminChat("Snap command executed: spawned all traits and mutations and music.");
+        break;
+      case '/help':
+        logAdminChat("Available commands:");
+        logAdminChat("/setclicks <number> - Set total clicks");
+        logAdminChat("/setcps <number> - Set clicks per second");
+        logAdminChat("/setcpc <number> - Set clicks per click");
+        logAdminChat("/spawncookies <number> - Spawn golden cookies");
+        logAdminChat("/announce <message> - Post global announcement");
+        logAdminChat("/radioactivestart - Start radioactive event");
+        logAdminChat("/radioactivestop - Stop radioactive event");
+        logAdminChat("/spawntaco - Spawn Raining Taco trait event");
+        logAdminChat("/spawnflare - Spawn Solar Flare trait event");
+        logAdminChat("/snap - Spawn all traits & mutations event + music");
+        logAdminChat("/godmode - Make all upgrades radioactive instantly");
+        logAdminChat("/godmode2 - Make all upgrades rainbow instantly (100x)");
+        logAdminChat("/help - Show this help message");
+        break;
+      default:
+        logAdminChat(`Unknown command: ${cmd}. Type /help for list.`);
+    }
+  }
+
+  adminChatInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const val = adminChatInput.value.trim();
+      if(val) {
+        logAdminChat(`> ${val}`);
+        processAdminCommand(val);
+        adminChatInput.value = '';
+      }
+    }
+  });
+
+  function logAdminChat(message) {
+    adminChatLog.textContent += message + "\n";
+    adminChatLog.scrollTop = adminChatLog.scrollHeight;
+  }
+
+  setInterval(() => {
+    conveyorTraitMutationTick();
+  }, 5000);
+
+  setInterval(() => {
+    clicks += cps * cpsMultiplier;
+    updateUI();
+  }, 1000);
+
+  initializeMusicPlayer();
+  initializeUpgrades();
+  recalcLuckMultiplier();
+  updateUI();
+  scheduleGoldenCookieSpawn();
+
+  cookieButton.addEventListener('click', clickCookie);
+  document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space') {
+      event.preventDefault();
+      clickCookie();
+    }
+  });
+  document.getElementById('admin-button').addEventListener('click', showAdminPanel);
+  viewLogsButton.addEventListener('click', () => {
+    if (updateLogsDisplay.style.display === 'block') {
+      updateLogsDisplay.style.display = 'none';
+    } else {
+      updateLogsDisplay.innerHTML = '<h3>Update History</h3><ul>' + updateLogs.map(log => `<li>${log}</li>`).join('') + '</ul>';
+      updateLogsDisplay.style.display = 'block';
+    }
+  });
+  viewOwnedUpgradesButton.addEventListener('click', () => {
+    renderOwnedUpgrades();
+    ownedUpgradesScreen.style.display = 'flex';
+  });
+  closeOwnedUpgradesBtn.addEventListener('click', () => {
+    ownedUpgradesScreen.style.display = 'none';
+  });
+
+  const updateLogs = [
+    "v1.0.0 - Initial Release",
+    "v1.0.1 - Fixed minor UI bugs",
+    "v1.1.0 - Added Golden Cookies!",
+    "v1.1.1 - Adjusted Golden Cookie spawn rates",
+    "v1.2.0 - Implemented Rebirth system",
+    "v1.2.1 - Balance adjustments for upgrades and rebirths",
+    "v1.3.0 - Added AI Helper",
+    "v1.4.0 - Admin Panel enhancements and Tester Cheats added",
+    "v1.4.1 - Added Global Announcements and Performance Optimization cheat",
+    "v1.4.2 - Cloaked to Lexia, added 'Made by David' sign.",
+    "v1.5.0 - Public Update Logs and Music Player added!"
+  ];
+</script>
+<script src="script.js"></script>
+  </body>
+</html>
